@@ -53,6 +53,8 @@ predict_gdp_Cuba <- function(result_latin_america, new_years) {
   return(predictions_cuba)
 }
 
+
 # Predicting GDP for 2021 and 2022
 CU_predicted_gdp_2021_2022 <- predict_gdp_Cuba(result_latin_america, c(2021, 2022))
 
+result_latin_america$GDPCap[result_latin_america$iso2c == "CU" & result_latin_america$year %in% 2021:2022] <- CU_predicted_gdp_2021_2022
