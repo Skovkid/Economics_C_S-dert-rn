@@ -1,5 +1,5 @@
 install.packages("stargazer")
-
+library(ggplot2)
 library(stargazer)
 
 
@@ -11,7 +11,51 @@ library(stargazer)
 
 model1 <- lm(result_latin_america$GDPCap ~ result_latin_america$PropWomen, data = result_latin_america)
 
+
+# Assuming 'df' is your dataframe
+
+# Convert year to a factor so that it is treated as a categorical variable
+result_latin_america$year <- as.factor(result_latin_america$year)
+
+# Run a linear model with fixed effects for each country
+model_fe_LatAm <- lm(result_latin_america$GDPCap ~ result_latin_america$PropWomen + factor(iso2c) + factor(year), data = result_latin_america)
+
+# View the summary of the model
+summary(model_fe_LatAm)
+
  
+
+
+
+
+# Creating a line graph
+ggplot(data = result_latin_america, aes(x = year, y = GDPCap, group = iso2c, color = iso2c)) + 
+  geom_line() +
+  theme_minimal() +
+  labs(title = "GDP per Capita Over Time by Country",
+       x = "Year",
+       y = "GDP per Capita (current US$)",
+       color = "Country") +
+  theme(legend.position = "bottom")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 model2 <- lm(dependent_variable ~ independent_variable1 + independent_variable2, data = your_data_frame)
 
 model3 <- lm(dependent_variable ~ independent_variable1 + independent_variable2, data = your_data_frame)
@@ -32,8 +76,6 @@ model9 <- lm(dependent_variable ~ independent_variable1 + independent_variable2,
 
 
 
-
-summary(model1)
 
 
 
