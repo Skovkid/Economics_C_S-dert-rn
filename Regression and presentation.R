@@ -1,9 +1,15 @@
 install.packages("stargazer")
+
 library(stargazer)
+
+
+#Debugging format for regression:
+
+
 
 # Assuming you have regression models stored in variables, for example:
 
-model1 <- lm(GDPCap ~ independent_variable1, data = result_latin_america)
+model1 <- lm(result_latin_america$GDPCap ~ result_latin_america$PropWomen, data = result_latin_america)
 
  
 model2 <- lm(dependent_variable ~ independent_variable1 + independent_variable2, data = your_data_frame)
@@ -27,7 +33,7 @@ model9 <- lm(dependent_variable ~ independent_variable1 + independent_variable2,
 
 
 
-
+summary(model1)
 
 
 
