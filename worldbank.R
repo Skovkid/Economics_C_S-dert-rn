@@ -30,7 +30,7 @@ WDIsearch()
 ################################ GDP Growth#########################
 
 
-GDP_Growth <- WDI(indicator = "NY.GDP.MKTP.KD.ZG")
+GDP_Growth <- WDI(indicator = "NY.GDP.PCAP.PP.CD")
 
 GDP_Growth <- GDP_Growth %>% 
   filter(year >= 1997) %>% 
@@ -42,7 +42,7 @@ GDP_Growth <- GDP_Growth %>%
 
 
 
-GDP_cap <- WDI(indicator = "NY.GDP.PCAP.CD")
+#GDP_cap <- WDI(indicator = "NY.GDP.PCAP.CD")
 
 
 
@@ -122,10 +122,7 @@ result_df <- result_df %>%
   left_join(WBL_ind, by = c("iso2c", "year"))
   
 result_df <- result_df %>% 
-  select(-iso3c.y.y.y,-country.y.y.y,-iso3c.x.x.x,-country.x.x.x,-iso3c.y.y,-country.y.y,-iso3c.x.x,-country.x.x,-iso3c.y,-country.y,-iso3c.x,country.x)
-
-result_df <- result_df %>% 
-  select(-country.x)
+  select(-iso3c.y.y.y,-iso3c.x.x.x,-iso3c.y.y,-country.y.y,-iso3c.x.x,-country.x.x,-iso3c.y,-country.y,-iso3c.x,-country.x)
 
 
 All_count_Res <- result_df %>% 
@@ -134,7 +131,7 @@ All_count_Res <- result_df %>%
 
 
 All_count_Res <- All_count_Res %>% 
-  rename(GDP_Growth=NY.GDP.MKTP.KD.ZG, 
+  rename(GDP_Growth_Cap= NY.GDP.PCAP.PP.CD, 
   Prop_Women = SG.GEN.PARL.ZS,
   Trade = NE.TRD.GNFS.ZS,
   Capital_formation = NE.GDI.TOTL.ZS,
@@ -146,3 +143,55 @@ All_count_Res_1997 <- All_count_Res %>%
 
 All_count_Res_1997 <- All_count_Res_1997 %>% 
   filter(year < 2023)
+
+
+###########################
+
+#################
+
+total_na_1997 <- sum(is.na(All_count_Res_1997))
+
+# Print the total number of NA values
+print(total_na_1997)
+
+na_count_per_column <- colSums(is.na(All_count_Res_1997))
+
+
+#GDP Missing
+
+na_GDP_Cap <- All_count_Res_1997[is.na(All_count_Res_1997$GDP_Growth_Cap), ]
+
+
+# Women in Parliament missing values
+na_prop_women_df <- All_count_Res_1997[is.na(All_count_Res_1997$Prop_Women), ]
+
+
+#Investment missing values
+
+na_inv_df <- All_count_Res_1997[is.na(All_count_Res_1997$Capital_formation), ]
+
+#Trade missing values
+
+na_trade_df <- All_count_Res_1997[is.na(All_count_Res_1997$Trade), ]
+
+#WBL index missing values
+
+na_WBL_df <- All_count_Res_1997[is.na(All_count_Res_1997$WBL_ind), ]
+
+
+
+
+
+
+######Getting Venezuelan population number
+
+VE_pop <- WDI(indicator = "SP.POP.TOTL")
+
+Ve_Iso2c <- "VE"
+
+VE_pop_res <- VE_pop %>% 
+  filter(iso2c %in% Ve_Iso2c)
+
+VE_pop_res <- VE_pop_res %>% 
+  filter(year < 2023,
+         year >= 2012)
