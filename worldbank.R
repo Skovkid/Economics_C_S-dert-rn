@@ -33,7 +33,7 @@ WDIsearch()
 GDP_Growth <- WDI(indicator = "NY.GDP.PCAP.PP.CD")
 
 GDP_Growth <- GDP_Growth %>% 
-  filter(year >= 1997) %>% 
+  filter(year >= 1996) %>% 
  # rename(GDP_Growth=NY.GDP.MKTP.KD.ZG) %>% 
   select(-country)
 

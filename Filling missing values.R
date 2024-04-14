@@ -108,11 +108,15 @@ temp_VE_df <- temp_VE_df %>% filter(iso2c != "CU")
 
 
 # Remove rows where iso2c is "AL", "BY", "HT", "ME", or "RS"
-temp_VE_df <- temp_VE_df %>% filter(!iso2c %in% c("AL", "BY", "HT", "ME", "RS"))
+temp_VE_Avg_df <- temp_VE_df %>% 
+  filter(!(iso2c %in% c("AL", "BY", "HT", "ME", "RS") & is.na(Prop_Women)))
 
 
-temp_VE_Avg_df <- temp_VE_df
 
+
+#Filling in Bolivia
+
+temp_VE_Avg_df[temp_VE_Avg_df$iso2c == "BO" & (temp_VE_Avg_df$year %in% c(1997, 1998)), "Prop_Women"] <- 11.53846
 
 ###############################################################
 
@@ -141,6 +145,3 @@ temp_VE_Avg_df <- fill_na_with_average()
 
 
 
-#Filling in Bolivia
-
-temp_VE_Avg_df[temp_VE_Avg_df$iso2c == "BO" & (temp_VE_Avg_df$year %in% c(1997, 1998)), "Prop_Women"] <- 11.53846
