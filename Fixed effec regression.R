@@ -1,4 +1,6 @@
 install.packages("broom")
+install.packages("stargazer")
+install.packages("plm")
 
 library(stargazer)
 library(plm)
@@ -9,7 +11,7 @@ library(ggplot2)
 
 
 # Assuming Reg_w_NA_df_No_TM is your panel data and already prepared
-fe_No_TM <- plm(GDP_Per_Capita_Growth ~ Prop_Women + Trade + Capital_formation + WBL_ind,
+fe_No_TM <- plm(GDP_Growth_Cap ~ Prop_Women + Trade + Capital_formation + WBL_ind,
                 data = Reg_w_NA_df_No_TM,
                 model = "within")
 
@@ -54,7 +56,7 @@ stargazer(fe_No_TM, type = "text",
 #################### One variable at a time #########################################
 
 #Assuming Reg_w_NA_df_No_TM is your panel data and already prepared
-fe_No_TM_1 <- plm(GDP_Per_Capita_Growth ~ Prop_Women,
+fe_No_TM_1 <- plm(GDP_Growth_Cap ~ Prop_Women,
                 data = Reg_w_NA_df_No_TM,
                 model = "within")
 summary(fe_No_TM_1)
@@ -62,7 +64,7 @@ summary(fe_No_TM_1)
 
 ###############################################################################
 
-fe_No_TM_2 <- plm(GDP_Per_Capita_Growth ~ Prop_Women + Trade,
+fe_No_TM_2 <- plm(GDP_Growth_Cap ~ Prop_Women + Trade,
                   data = Reg_w_NA_df_No_TM,
                   model = "within")
 summary(fe_No_TM_2)
@@ -72,7 +74,7 @@ summary(fe_No_TM_2)
 ###############################################################################
 
 
-fe_No_TM_3 <- plm(GDP_Per_Capita_Growth ~ Prop_Women + Trade + Capital_formation,
+fe_No_TM_3 <- plm(GDP_Growth_Cap ~ Prop_Women + Trade + Capital_formation,
                   data = Reg_w_NA_df_No_TM,
                   model = "within")
 summary(fe_No_TM_3)
@@ -81,11 +83,15 @@ summary(fe_No_TM_3)
 ###############################################################################
 
 # Assuming Reg_w_NA_df_No_TM is your panel data and already prepared
-fe_No_TM_4 <- plm(GDP_Per_Capita_Growth ~ Prop_Women + WBL_ind + Trade + Capital_formation,
+fe_No_TM_4 <- plm(GDP_Growth_Cap ~ Prop_Women + WBL_ind + Trade + Capital_formation,
                 data = Reg_w_NA_df_No_TM,
                 model = "within")
+
 summary(fe_No_TM_4)
 
 ###############################################################################
 
 
+
+
+################## DIFFERENT METHOD
