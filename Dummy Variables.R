@@ -1,20 +1,19 @@
 library(dplyr)
 library(tidyverse)
 
-library(dplyr)
-
 # Create an example data frame
 Reg_dum <- data.frame(
   iso2c = c("AR", "BO", "BR", "CL", "CO", "CR", "CU", "DO", "EC", "SV",
-            "GT", "HT", "HN", "MX", "NI", "PA", "PY", "PE", "UY", "VE","US", "CA",
-            "AT", "BE", "BG", "CH", "CY", "CZ", "DE",
+            "GT", "HT", "HN", "MX", "NI", "PA", "PY", "PE", "UY", "VE",
+            "US", "CA", "AT", "BE", "BG", "CH", "CY", "CZ", "DE",
             "DK", "EE", "ES", "FI", "FR", "GB", "GR",
             "HR", "HU", "IE", "IS", "IT", "LT", "LU",
             "LV", "MD", "ME", "MK", "MT", "NL", "NO",
             "PL", "PT", "RO", "RS", "SE", "SI", "SK", "UA",
-            "RU", "KZ", "UZ", "KG", "TJ", "BY"# Example country codes
-  )
+            "RU", "KZ", "UZ", "KG", "TJ", "BY",
+            "AL", "AM", "AZ", "GE", "TR", "TM")  # Ensure no trailing comma without following values
 )
+
 # Now perform the mutation to add region categories
 Reg_dum <- Reg_dum %>%
   mutate(
@@ -26,8 +25,8 @@ Reg_dum <- Reg_dum %>%
                    "DK", "EE", "ES", "FI", "FR", "GB", "GR",
                    "HR", "HU", "IE", "IS", "IT", "LT", "LU",
                    "LV", "MD", "ME", "MK", "MT", "NL", "NO",
-                   "PL", "PT", "RO", "RS", "SE", "SI", "SK", "UA") ~ "Europe",
-      iso2c %in% c("RU", "KZ", "UZ", "KG", "TJ", "BY") ~ "Russia and Central Asia",
+                   "PL", "PT", "RO", "RS", "SE", "SI", "SK", "UA", "AL","TR") ~ "Europe",
+      iso2c %in% c("RU", "KZ", "UZ", "KG", "TJ", "BY","TM","AZ", "GE","AM") ~ "Russia and Central Asia",
       TRUE ~ "Other"
     )
   )
