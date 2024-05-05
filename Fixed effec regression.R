@@ -105,7 +105,7 @@ stargazer(fe_No_TM_growth, type = "text",
 
 
 
-
+#Real GDP per Capita
 stargazer(fe_No_TM_1, fe_No_TM_2, fe_No_TM_3, fe_No_TM,
           type = "text",  # Ensure type is set to "html" for HTML output
           title = "Results of Fixed Effects Regression",
@@ -114,7 +114,13 @@ stargazer(fe_No_TM_1, fe_No_TM_2, fe_No_TM_3, fe_No_TM,
 
 
 
+#Real GDP per Capita Growth
 
+stargazer(fe_No_TM_1_growth, fe_No_TM_2_growth, fe_No_TM_growth,
+          type = "text",  # Ensure type is set to "html" for HTML output
+          title = "Results of Fixed Effects Regression",
+          align = TRUE,
+          out = "table_FE_Regression.txt")
 
 #################### One variable at a time #########################################
 
@@ -209,3 +215,26 @@ summary(Wom_n_WBL)
 
 Wom_n_WBL_rev <- plm(Prop_Women ~ WBL_ind, data=pdata, model="within")
 summary(Wom_n_WBL_rev)
+
+
+
+
+
+#########Real GDP per Capita Growth
+
+
+#################### One variable at a time #########################################
+
+#Assuming Reg_w_NA_df_No_TM is your panel data and already prepared
+fe_No_TM_1_growth <- plm(GDP_Per_Capita_Growth ~ Prop_Women,
+                  data = Reg_w_NA_df_No_TM,
+                  model = "within")
+
+fe_No_TM_2_growth <- plm(GDP_Per_Capita_Growth ~ Prop_Women + Trade,
+                  data = Reg_w_NA_df_No_TM,
+                  model = "within")
+
+fe_No_TM_3_growth <- plm(GDP_Per_Capita_Growth ~ Prop_Women + Trade + Capital_formation,
+                  data = Reg_w_NA_df_No_TM,
+                  model = "within")
+
